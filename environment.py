@@ -144,7 +144,8 @@ class EnvBase(ABC):
                 if np.any(episode_finished):
                     break
 
-            self.__total_scores.append(scores.max())
+            self.__last_score = scores.max()
+            self.__total_scores.append(self.__last_score)
 
             mean_score = np.mean(self.__total_scores[-100:])
             self.report_progress(episode, mean_score)
@@ -159,7 +160,6 @@ class EnvBase(ABC):
             agent.actor_local.load_state_dict(actor)
 
         self.__avg_score = np.mean(self.__total_scores)
-        self.__last_score = scores.mean()
 
 
 class InfoStub:

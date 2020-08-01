@@ -171,8 +171,8 @@ class TestEnvironment(unittest.TestCase):
 
         self.assertFalse(env.train_mode)
         self.assertIsNotNone(env.train_mode)
-        self.assertAlmostEqual(-5.5 / 3.0, env.avg_score)
-        self.assertAlmostEqual(-4.0 / 3.0, env.last_score)
+        self.assertAlmostEqual(-0.5, env.avg_score)
+        self.assertAlmostEqual(0.0, env.last_score)
 
 
     def test_environment_train(self):
