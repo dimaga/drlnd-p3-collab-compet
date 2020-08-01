@@ -44,10 +44,10 @@ class Agent:
 
 
         self.__critic_local = Critic(
-            state_size, action_size, random_seed+2).to(DEVICE)
+            2 * state_size, action_size, random_seed+2).to(DEVICE)
 
         self.__critic_target = Critic(
-            state_size, action_size, random_seed+3).to(DEVICE)
+            2 * state_size, action_size, random_seed+3).to(DEVICE)
 
         self.__critic_optimizer = optim.Adam(
             self.__critic_local.parameters())
@@ -122,16 +122,23 @@ class Agent:
             experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done)
             tuples gamma (float): discount factor"""
 
-        states, actions, rewards, next_states, dones = experiences
-
         # Update critic
         # Get predicted next-state actions and Q values from target models
-        actions_next = self.__actor_target(next_states)
-        q_targets_next = self.__critic_target(next_states, actions_next)
+        actions_next = self.__actor_target(experiences.next_state)
+
+        q_targets_next = self.__critic_target(
+            experiences.all_next_state,
+            actions_next)
+
         # Compute Q targets for current states (y_i)
-        q_targets = rewards + (gamma * q_targets_next * (1 - dones))
+        q_targets = experiences.reward + (
+            gamma * q_targets_next * (1 - experiences.done))
+
         # Compute critic loss
-        q_expected = self.__critic_local(states, actions)
+        q_expected = self.__critic_local(
+            experiences.all_state,
+            experiences.action)
+
         critic_loss = F.mse_loss(q_expected, q_targets)
         # Minimize the loss
         self.__critic_optimizer.zero_grad()
@@ -141,8 +148,12 @@ class Agent:
 
         # Update actor
         # Compute actor loss
-        actions_pred = self.actor_local(states)
-        actor_loss = -self.__critic_local(states, actions_pred).mean()
+        actions_pred = self.actor_local(experiences.state)
+
+        actor_loss = -self.__critic_local(
+            experiences.all_state,
+            actions_pred).mean()
+
         # Minimize the loss
         self.__actor_optimizer.zero_grad()
         actor_loss.backward()

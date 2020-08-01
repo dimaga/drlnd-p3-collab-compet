@@ -22,13 +22,11 @@ class TestReplayBuffer(unittest.TestCase):
 
         states = np.array([ # agents, state vector
             [0.0, 0.0, 1.0],
-            [1.0, 0.0, 0.0],
             [0.0, 1.0, 0.0],
         ])
 
         actions = np.array([ # agents, action vector
             [1.0, 2.0],
-            [-1.0, 4.0],
             [0.5, 0.2]
         ])
 
@@ -37,24 +35,24 @@ class TestReplayBuffer(unittest.TestCase):
         info.vector_observations = np.array([ # agents, state vector
             [1.0, 0.0, 0.0],
             [0.0, 0.0, 1.0],
-            [1.0, 0.0, 0.0],
         ])
 
-        info.rewards = np.array([1.0, -1.0, 1.0])
-        info.local_done = np.array([False, False, True], np.bool_)
+        info.rewards = np.array([1.0, 1.0])
+        info.local_done = np.array([False, False], np.bool_)
 
         replay.add(states, actions, info)
 
-        self.assertEqual(3, len(replay))
+        self.assertEqual(2, len(replay))
 
-        new_states, new_actions, new_rewards, new_next_states, new_dones = \
-            replay.sample()
+        torch_experiences = replay.sample()
 
-        self.assertEqual((2, 3), new_states.size())
-        self.assertEqual((2, 2), new_actions.size())
-        self.assertEqual((2, 1), new_rewards.size())
-        self.assertEqual((2, 3), new_next_states.size())
-        self.assertEqual((2, 1), new_dones.size())
+        self.assertEqual((2, 3), torch_experiences.state.size())
+        self.assertEqual((2, 2), torch_experiences.action.size())
+        self.assertEqual((2, 6), torch_experiences.all_state.size())
+        self.assertEqual((2, 1), torch_experiences.reward.size())
+        self.assertEqual((2, 3), torch_experiences.next_state.size())
+        self.assertEqual((2, 6), torch_experiences.all_next_state.size())
+        self.assertEqual((2, 1), torch_experiences.done.size())
 
 
 
