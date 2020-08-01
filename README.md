@@ -24,7 +24,8 @@ All the Python code is pylint-compliant.
 
 ### Getting Started
 
-Follow the steps, described in https://github.com/udacity/deep-reinforcement-learning/tree/dc65050c8f47b365560a30a112fb84f762005c6b README.md,
+Follow the steps, described in
+https://github.com/udacity/deep-reinforcement-learning/tree/dc65050c8f47b365560a30a112fb84f762005c6b README.md,
 Dependencies section, to deploy your development environment for this project.
 
 Basically, you will need:
