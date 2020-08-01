@@ -11,7 +11,7 @@ def main():
 
     env, agent = create_env_agent()
 
-    env.train(agent, 20000)
+    env.train(agent, 3500)
 
     if env.max_mean_score > 0.5:
 
