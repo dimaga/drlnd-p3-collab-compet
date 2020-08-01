@@ -6,7 +6,7 @@ import numpy as np
 from unityagents import UnityEnvironment
 
 
-ENV_PATH = "/Applications/Reacher20.app"
+ENV_PATH = "/Applications/Tennis.app"
 
 
 class EnvBase(ABC):
@@ -144,7 +144,7 @@ class EnvBase(ABC):
                 if np.any(episode_finished):
                     break
 
-            self.__total_scores.append(scores.mean())
+            self.__total_scores.append(scores.max())
 
             mean_score = np.mean(self.__total_scores[-100:])
             self.report_progress(episode, mean_score)
