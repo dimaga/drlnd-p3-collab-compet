@@ -154,11 +154,9 @@ class EnvBase(ABC):
 
                 if train_mode:
                     actor = agent.actor_local.state_dict().copy()
-                    critic = agent.critic_local.state_dict().copy()
 
         if train_mode and actor is not None and critic is not None:
             agent.actor_local.load_state_dict(actor)
-            agent.critic_local.load_state_dict(critic)
 
         self.__avg_score = np.mean(self.__total_scores)
         self.__last_score = scores.mean()

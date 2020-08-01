@@ -14,7 +14,6 @@ Besides README.md, this repository holds of the following files:
 * __test.py__ is the main file for testing
 * __train.py__ is the main file for training
 * __actor.pth__ is the Actor neural network trained parameters
-* __critic.pth__ is the Critic neural network trained parameters
 * __agent.py__ implements an agent for training and testing
 * __env\_agent\_factory.py__ creates an environment and its agent
 * __neural\_nets.py__ creates neural networks for an Actor and a Critic.

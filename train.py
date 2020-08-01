@@ -20,7 +20,6 @@ def main():
             env.max_mean_score)
 
         torch.save(agent.actor_local.state_dict(), "actor.pth")
-        torch.save(agent.critic_local.state_dict(), "critic.pth")
     else:
         print("Average score is below 0.5, not saved", env.max_mean_score)
 

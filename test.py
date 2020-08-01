@@ -10,7 +10,6 @@ def main():
     env, agent = create_env_agent()
 
     agent.actor_local.load_state_dict(torch.load("actor.pth"))
-    agent.critic_local.load_state_dict(torch.load("critic.pth"))
 
     env.test(agent, 100)
 

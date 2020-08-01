@@ -43,14 +43,14 @@ class Agent:
             self.actor_local.parameters())
 
 
-        self.critic_local = Critic(
+        self.__critic_local = Critic(
             state_size, action_size, random_seed+2).to(DEVICE)
 
         self.__critic_target = Critic(
             state_size, action_size, random_seed+3).to(DEVICE)
 
         self.__critic_optimizer = optim.Adam(
-            self.critic_local.parameters())
+            self.__critic_local.parameters())
 
         self.__memory = ReplayBuffer(BUFFER_SIZE, BATCH_SIZE, random_seed+4)
 
@@ -131,25 +131,25 @@ class Agent:
         # Compute Q targets for current states (y_i)
         q_targets = rewards + (gamma * q_targets_next * (1 - dones))
         # Compute critic loss
-        q_expected = self.critic_local(states, actions)
+        q_expected = self.__critic_local(states, actions)
         critic_loss = F.mse_loss(q_expected, q_targets)
         # Minimize the loss
         self.__critic_optimizer.zero_grad()
         critic_loss.backward()
-        torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
+        torch.nn.utils.clip_grad_norm_(self.__critic_local.parameters(), 1)
         self.__critic_optimizer.step()
 
         # Update actor
         # Compute actor loss
         actions_pred = self.actor_local(states)
-        actor_loss = -self.critic_local(states, actions_pred).mean()
+        actor_loss = -self.__critic_local(states, actions_pred).mean()
         # Minimize the loss
         self.__actor_optimizer.zero_grad()
         actor_loss.backward()
         self.__actor_optimizer.step()
 
         # Update target networks
-        _soft_update(self.critic_local, self.__critic_target, TAU)
+        _soft_update(self.__critic_local, self.__critic_target, TAU)
         _soft_update(self.actor_local, self.__actor_target, TAU)
 
 
