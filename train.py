@@ -14,11 +14,7 @@ def main():
     env.train(agent, 3500)
 
     if env.max_mean_score > 0.5:
-
-        print(
-            "Saving actor.pth and critic.pth with score",
-            env.max_mean_score)
-
+        print("Saving actor.pth with score", env.max_mean_score)
         torch.save(agent.actor_local.state_dict(), "actor.pth")
     else:
         print("Average score is below 0.5, not saved", env.max_mean_score)
