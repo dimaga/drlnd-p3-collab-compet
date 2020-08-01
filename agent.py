@@ -15,7 +15,7 @@ GAMMA = 0.99            # discount factor
 TAU = 1e-3              # for soft update of target parameters
 EPS_START = 1.0         # Initial noise scalar multiplier
 EPS_END = 0.01          # Final noise scalar multiplier
-EPS_DECAY = 0.99995     # Noise exponential rate
+EPS_DECAY = 0.999995    # Noise exponential rate
 
 
 class Agent:
