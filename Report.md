@@ -7,6 +7,12 @@ TODO: The report clearly describes the learning algorithm, along with the chosen
 hyperparameters. It also describes the model architectures for any neural
 networks.
 
+![Actor](actor.png)
+
+
+![Critic](critic.png)
+
+
 ### Plot of Rewards
 
 ![TrainingGraph](training_graph.png)
