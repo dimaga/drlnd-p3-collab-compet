@@ -19,7 +19,7 @@ EPS_DECAY = 0.999995    # Noise exponential rate
 
 
 class Agent:
-    """Policy gradient agent to train and act in a distributed environment"""
+    """Policy gradient agent to train and act in a two agent environment"""
 
     # pylint: disable=no-member, too-many-instance-attributes
 
@@ -42,6 +42,8 @@ class Agent:
         self.__actor_optimizer = optim.Adam(
             self.actor_local.parameters())
 
+        # 2 * state_size is a full state dimension, which includes
+        # the state of an agent and its opponent
 
         self.__critic_local = Critic(
             2 * state_size, action_size, random_seed+2).to(DEVICE)
@@ -85,11 +87,10 @@ class Agent:
 
 
     def act(self, states, add_noise):
-        """Calculates action vectors from state vectors for multiple
-        environments
-        :param states: state vectors from multiple environments
+        """Calculates action vectors from state vectors for two agents
+        :param states: state vectors from two agents
         :param add_noise: if True, adds noise vector
-        :return: action vectors for multiple environments"""
+        :return: action vectors for each agent"""
 
         torch_states = torch.from_numpy(states).float().to(DEVICE)
 

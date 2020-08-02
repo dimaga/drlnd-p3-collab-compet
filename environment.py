@@ -15,8 +15,7 @@ class EnvBase(ABC):
     def __init__(self, num_agents):
         """Create environment for testing and training with
 
-        :param num_agents: Number of copies of the environment for distributed
-        training
+        :param num_agents: Number of agents of the environment
         """
 
         self.__num_agents = num_agents
@@ -30,34 +29,33 @@ class EnvBase(ABC):
 
     @property
     def total_scores(self):
-        """:return: History of total scores of each environment instance per
-        each episode"""
+        """:return: History of total scores of each agent per each episode"""
         return self.__total_scores
 
 
     @property
     def max_mean_score(self):
         """:return: Maximum mean score over 100-episode window over all
-        environments"""
+        agents"""
         return self.__max_mean_score
 
 
     @property
     def avg_score(self):
-        """:return: Average scores of all episodes over all environments"""
+        """:return: Average scores of all episodes. For each episode, a maximum
+        score of all agents is taken"""
         return self.__avg_score
 
 
     @property
     def last_score(self):
-        """:return: Last episode score averaged over all environments"""
+        """:return: Last episode score averaged over all agents"""
         return self.__last_score
 
 
     @property
     def num_agents(self):
-        """:return: Number of environment instances which are trained and tested
-        in parallel"""
+        """:return: Number of agents in an environment"""
         return self.__num_agents
 
 
@@ -77,28 +75,27 @@ class EnvBase(ABC):
 
     @abstractmethod
     def _step(self, actions):
-        """Apply actions to environment instances to update their states. The
-        method must be overloaded by a subclass
+        """Apply actions to agents to update their states. The method must be
+        overloaded by a subclass
         :param actions: action vectors
-        :return: New state vectors per each environment instance"""
+        :return: New state vectors per each agent"""
         raise NotImplementedError
 
 
     @abstractmethod
     def _reset(self, train_mode):
-        """Start training or testing in environment instances. The method must
-        be overloaded by a subclass
+        """Start training or testing of agents. The method must be overloaded by
+        a subclass
         :param train_mode: True if training mode.
-        :return: Initial state vectors per each environment instance"""
+        :return: Initial state vectors per each agent"""
         raise NotImplementedError
 
 
     def train(self, agent, n_episodes):
-        """Train agent by running num_agent environments for n_episodes. The
+        """Train agent by running num_agent agents for n_episodes. The
         training algorithm will pick the best results over 100-episode window
-        and re-store it in agent.actor_local and agent.critic_local
-        :param agent: Agent, implementing neural networks and training
-        algorithms
+        and re-store it in agent.actor_local
+        :param agent: Agent instance
         :param n_episodes: Number of episodes for training
         """
         self.__run(True, agent, n_episodes)

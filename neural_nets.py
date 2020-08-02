@@ -52,12 +52,12 @@ class Critic(nn.Module):
     """Critic (Value) Model."""
 
     def __init__(self, state_size, action_size, seed):
-        """Create an instance of Cricit neural network, which takes state
+        """Create an instance of Cricit neural network, which takes full state
         vector and action vector as the input and returns the value of the
-        (state, action pair)
-        :param state_size: dimensionality of the state vector
+        (full state, action pair)
+        :param state_size: dimensionality of the full state vector
         :param action_size: dimensionality of the action vector
-        :param seed: random seen to reproduce results
+        :param seed: random seed to reproduce results
         """
         super(Critic, self).__init__()
 
@@ -75,8 +75,8 @@ class Critic(nn.Module):
 
 
     def forward(self, state, action):
-        """Build a critic (value) network that maps (state, action) pairs ->
-        Q-values."""
+        """Build a critic (value) network that maps (full state, action) pairs
+        -> Q-values."""
 
         # pylint: disable=no-member, arguments-differ
 

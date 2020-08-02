@@ -125,7 +125,7 @@ class ReplayBuffer:
     def sample(self):
         """
         Randomly sample a batch of experiences from memory
-        :return: (states, actions, rewards, next_states, dones) as torch tensors
+        :return: torch tensors packed into Experience class
         """
         experiences = random.sample(self.__memory, k=self.__batch_size)
         return _experience_to_torch_device(experiences)

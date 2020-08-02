@@ -30,7 +30,7 @@ class TestQUNoise(unittest.TestCase):
     """Test QUNoise"""
 
     def test_sample(self):
-        """Test how an agent can act"""
+        """Test noise sampling"""
 
         noise = OUNoise(2, 0)
 

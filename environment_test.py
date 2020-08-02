@@ -107,8 +107,8 @@ class EnvPlane(EnvBase):
 
 
     def _step(self, actions):
-        """Apply agent actions to environments to produce new actions, rewards;
-        and estimate which environments are done.
+        """Apply actions to agents to produce new states, rewards; and estimate
+        which agents are done.
 
         :param actions: actions taken by an agent upon states.
         Format:
@@ -200,7 +200,7 @@ class TestEnvironment(unittest.TestCase):
 
     def __on_reset_test(self, env, state):
         """Event handler of EnvPlane._reset() calls to generate diverse states
-        for different environments and episodes in test() call
+        for different agents and episodes in test() call
 
         :param env: EnvPlane instance
 
@@ -219,7 +219,7 @@ class TestEnvironment(unittest.TestCase):
 
     def __on_reset_train(self, *_):
         """Event handler of EnvPlane._reset() calls to generate diverse states
-        for different environments and episodes in train() call"""
+        for different agents and episodes in train() call"""
 
         self.__train_episode += 1
 
