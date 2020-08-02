@@ -3,8 +3,8 @@
 
 ![Tennis](tennis.png)
 
-This is my solution to Collaboration and Competitionl Project of Udacity Deep Reinforcement
-Learning course. Original project template is available at
+This is my solution to Collaboration and Competition Project of Udacity Deep
+Reinforcement Learning course. Original project template is available at
 https://github.com/udacity/deep-reinforcement-learning/tree/master/p3_collab-compet
 
 In this environment, two agents control rackets to bounce a ball over a net. If
