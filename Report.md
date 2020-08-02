@@ -1,11 +1,15 @@
 # Project 3. Collaboration and Competition
 ### Learning Algorithm
 
+![Tennis](tennis.png)
+
 TODO: The report clearly describes the learning algorithm, along with the chosen
 hyperparameters. It also describes the model architectures for any neural
 networks.
 
 ### Plot of Rewards
+
+![TrainingGraph](training_graph.png)
 
 TODO: A plot of rewards per episode is included to illustrate that the agents
 get an average score of +0.5 (over 100 consecutive episodes, after taking the
